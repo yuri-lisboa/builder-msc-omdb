@@ -1,11 +1,15 @@
+"""
+Pydantic schemas for Movie API with specific field validation.
+"""
+
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 
 class MovieCreate(BaseModel):
-    """Schema para criar filme - apenas título necessário"""
+    """Schema for creating a movie."""
 
     title: str = Field(
         ...,
@@ -17,38 +21,46 @@ class MovieCreate(BaseModel):
 
 
 class MovieResponse(BaseModel):
-    """Schema de resposta - todos os campos"""
+    """Schema for movie response with specific validated fields."""
 
     model_config = ConfigDict(from_attributes=True)
 
-    id: int
-    imdb_id: Optional[str] = None
-    title: str
-    plot: Optional[str] = None
-    released: Optional[str] = None
-    year: Optional[str] = None
-    runtime: Optional[str] = None
-    genre: Optional[str] = None
-    director: Optional[str] = None
-    rated: Optional[str] = None
-    writer: Optional[str] = None
-    actors: Optional[str] = None
-    imdb_rating: Optional[float] = None
-    awards: Optional[str] = None
-    language: Optional[str] = None
-    country: Optional[str] = None
-    created_at: datetime
-    updated_at: datetime
+    id: int = Field(..., description="Movie ID")
+    imdb_id: str = Field(..., description="IMDB unique identifier")
+    title: str = Field(..., description="Movie title")
+    plot: Optional[str] = Field(None, description="Movie plot/synopsis")
+    released: Optional[str] = Field(None, description="Release date")
+    year: Optional[str] = Field(None, description="Release year")
+    runtime: Optional[str] = Field(None, description="Movie runtime")
+    genre: Optional[str] = Field(None, description="Movie genres")
+    rated: Optional[str] = Field(None, description="Movie rating (PG, R, etc)")
+    director: Optional[str] = Field(None, description="Director name(s)")
+    writer: Optional[str] = Field(None, description="Writer name(s)")
+    actors: Optional[str] = Field(None, description="Actor name(s)")
+    imdb_rating: Optional[float] = Field(None, description="IMDB rating (0-10)")
+    awards: Optional[str] = Field(None, description="Awards received")
+    language: Optional[str] = Field(None, description="Languages")
+    country: Optional[str] = Field(None, description="Countries")
+    created_at: datetime = Field(..., description="Creation timestamp")
+    updated_at: datetime = Field(..., description="Last update timestamp")
+
+    @field_validator("imdb_rating")
+    @classmethod
+    def validate_rating(cls, v: Optional[float]) -> Optional[float]:
+        """Validate IMDB rating is between 0 and 10."""
+        if v is not None and (v < 0 or v > 10):
+            raise ValueError("IMDB rating must be between 0 and 10")
+        return v
 
 
 class MovieListResponse(BaseModel):
-    """Schema para lista de filmes"""
+    """Schema for movie list response."""
 
-    movies: list[MovieResponse]
-    total: int
+    movies: list[MovieResponse] = Field(..., description="List of movies")
+    total: int = Field(..., description="Total number of movies")
 
 
 class ErrorResponse(BaseModel):
-    """Schema para erros"""
+    """Schema for error responses."""
 
-    detail: str
+    detail: str = Field(..., description="Error message")

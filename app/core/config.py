@@ -40,6 +40,11 @@ class Settings(BaseSettings):
             )
         )
 
+    @property
+    def db_url(self) -> str:
+        """Retorna a URL de conexão em formato síncrono padrão (sem asyncpg)"""
+        return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+
     OMDB_API_KEY: str
     OMDB_BASE_URL: str = "http://www.omdbapi.com/"
 
