@@ -11,7 +11,7 @@ from app.db.database import init_db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    if not settings.OMDB_API_KEY or settings.OMDB_API_KEY == "your_api_key_here":
+    if not settings.OMDB_API_KEY:
         raise ValueError("OMDB_API_KEY não configurada!")
 
     await init_db()

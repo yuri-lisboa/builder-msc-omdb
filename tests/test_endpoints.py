@@ -1,4 +1,3 @@
-# tests/test_endpoints.py
 from unittest.mock import AsyncMock, patch
 
 import pytest
