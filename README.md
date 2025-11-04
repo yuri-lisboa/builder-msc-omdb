@@ -129,7 +129,7 @@ Antes de começar, você precisa ter instalado:
 
 ## 🚀 Instalação
 
-### Método 1: Docker (Recomendado)
+### Docker (Recomendado)
 
 ```bash
 # 1. Clone o repositório
@@ -147,32 +147,6 @@ docker-compose up -d
 
 # 5. Verifique se está rodando
 docker-compose ps
-```
-
-### Método 2: Instalação Local
-
-```bash
-# 1. Clone o repositório
-git clone https://github.com/yuri-lisboa/builder-msc-omdb
-cd builder-msc-omdb
-
-# 2. Crie um ambiente virtual
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# ou
-venv\Scripts\activate  # Windows
-
-# 3. Instale as dependências
-pip install -r requirements.txt
-
-# 4. Configure as variáveis de ambiente
-cp .env.example .env
-vim .env  # Edite com suas configurações
-
-# 5. Inicie o PostgreSQL (certifique-se que está rodando)
-
-# 6. Execute a aplicação
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 ---
@@ -375,26 +349,6 @@ pytest
 pytest --cov=app --cov-report=html
 ```
 
-### Ver Relatório de Cobertura
-
-```bash
-# Gerar relatório HTML
-pytest --cov=app --cov-report=html
-
-# Abrir no navegador
-open htmlcov/index.html  # Mac
-xdg-open htmlcov/index.html  # Linux
-start htmlcov/index.html  # Windows
-```
-
-### Estrutura dos Testes
-
-```
-tests/
-├── conftest.py              # Fixtures e configurações
-├── test_repository.py       # Testes unitários do repository
-└── test_endpoints.py        # Testes de integração da API
-```
 
 ---
 
@@ -525,66 +479,6 @@ docker-compose ps
 # Reiniciar API
 docker-compose restart api
 ```
-
----
-
-## 🤝 Contribuindo
-
-Contribuições são bem-vindas! Siga estas etapas:
-
-1. **Fork** o projeto
-2. **Crie uma branch** para sua feature (`git checkout -b feature/AmazingFeature`)
-3. **Commit suas mudanças** (`git commit -m 'feat: Add some AmazingFeature'`)
-4. **Push** para a branch (`git push origin feature/AmazingFeature`)
-5. **Abra um Pull Request**
-
-### Convenções
-
-- Commits seguem [Conventional Commits](https://www.conventionalcommits.org/)
-- Código formatado com **Black**
-- Type hints obrigatórios
-- Testes para novas features
-- Documentação atualizada
-
----
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 👤 Autor
-
-**Seu Nome**
-
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [@seu-linkedin](https://linkedin.com/in/seu-linkedin)
-
----
-
-## 🙏 Agradecimentos
-
-- [FastAPI](https://fastapi.tiangolo.com/) - Framework web incrível
-- [OMDB API](https://www.omdbapi.com/) - Dados de filmes
-- [SQLAlchemy](https://www.sqlalchemy.org/) - ORM poderoso
-- Comunidade Python - Pelo suporte e ferramentas
-
----
-
-## 📊 Status do Projeto
-
-✅ **Projeto Completo e Funcional**
-
-- [x] Endpoints REST implementados
-- [x] Integração OMDB funcionando
-- [x] Database PostgreSQL configurado
-- [x] Docker containerizado
-- [x] Testes com cobertura >80%
-- [x] Documentação completa
-- [x] PEP 8 compliant
-- [x] Type hints 100%
-- [x] Pronto para produção
 
 ---
 
